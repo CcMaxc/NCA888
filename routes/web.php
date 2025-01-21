@@ -2,10 +2,21 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('login');
 });
+
+Route::get('/login', [AuthenticatedSessionController::class, 'create'])
+    ->name('login');
+
+Route::post('/login', [AuthenticatedSessionController::class, 'store']);
+
+Route::get('/register', [RegisteredUserController::class, 'create'])
+    ->name('register');
+
+Route::post('/register', [RegisteredUserController::class, 'store']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');
